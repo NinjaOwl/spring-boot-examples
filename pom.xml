@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
@@ -15,6 +15,7 @@
         <module>spring-boot-banner</module>
         <module>spring-boot-commandLineRunner</module>
         <module>spring-boot-docker</module>
+        <module>spring-boot-elasticsearch</module>
         <module>spring-boot-fastDFS</module>
         <module>spring-boot-file-upload</module>
         <module>spring-boot-hello</module>
@@ -32,10 +33,12 @@
         <module>spring-boot-mybatis/spring-boot-mybatis-xml-mulidatasource</module>
         <module>spring-boot-package</module>
         <module>spring-boot-package-war</module>
+        <module>spring-boot-quartz-cluster</module>
         <module>spring-boot-rabbitmq</module>
         <module>spring-boot-redis</module>
         <module>spring-boot-scheduler</module>
         <module>spring-boot-shiro</module>
+        <module>spring-boot-swagger</module>
         <module>spring-boot-thymeleaf/spring-boot-thymeleaf</module>
         <module>spring-boot-thymeleaf/spring-boot-thymeleaf-layout</module>
         <module>spring-boot-web</module>

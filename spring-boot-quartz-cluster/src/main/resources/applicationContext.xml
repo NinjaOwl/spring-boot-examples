@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
+        id="dataSource">
+        <property name="driverClassName">
+            <value>${driverClassName}</value>
+        </property>
+        <property name="url">
+            <value>${jdbcUrl}</value>
+        </property>
+        <property name="username">
+            <value>${jdbcUser}</value>
+        </property>
+        <property name="password">
+            <value>${password}</value>
+        </property>
+        <property name="initialSize">
+            <value>${initialSize}</value>
+        </property>
+        <property name="maxActive">
+            <value>${maxActive}</value>
+        </property>
+        <property name="maxIdle">
+            <value>${maxIdle}</value>
+        </property>
+        <property name="maxWait">
+            <value>${maxWait}</value>
+        </property>
+    </bean>
+
+    <!-- *****************************************************************  -->
+    <bean class="org.springframework.scheduling.quartz.JobDetailFactoryBean"
+        id="springQtzJobDetail">
+        <property name="jobClass" value="com.jiangfw.job.SpringQtz"/>
+        <property name="durability" value="true"/>
+
+        <property name="group" value="job_work"/>
+        <property name="name" value="job_work_name"/>
+    </bean>
+    <bean class="org.springframework.scheduling.quartz.JobDetailFactoryBean"
+        id="springQtzJobDetail1">
+        <property name="jobClass" value="com.jiangfw.job.SpringQtzDemo"/>
+        <property name="durability" value="true"/>
+
+        <property name="group" value="job_work1"/>
+        <property name="name" value="job_work_name1"/>
+    </bean>
+
+
+    <!-- ======================== 调度触发器 ======================== -->
+    <bean class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"
+        id="cronTriggerBean">
+        <property name="jobDetail" ref="springQtzJobDetail"/>
+        <!-- cron表达式 -->
+        <property name="cronExpression" value="0/7 * * * * ?"/>
+    </bean>
+
+    <bean class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"
+        id="cronTriggerBean1">
+        <property name="jobDetail" ref="springQtzJobDetail1"/>
+        <!-- cron表达式 -->
+        <property name="cronExpression" value="0/5 * * * * ?"/>
+    </bean>
+
+    <!-- ======================== 调度工厂 ======================== -->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
+        id="springJobSchedulerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="applicationContextSchedulerContextKey" value="applicationContext"/>
+        <property name="configLocation" value="classpath:quartz.properties"/>
+        <!--启动时更新己存在的Job，这样就不用每次修改targetObject后删除qrtz_job_details表对应记录了-->
+        <property name="overwriteExistingJobs" value="true"/>
+        <property name="triggers">
+            <list>
+                <ref bean="cronTriggerBean"/>
+                <ref bean="cronTriggerBean1"/>
+            </list>
+        </property>
+        <property name="jobDetails">
+            <list>
+                <ref bean="springQtzJobDetail"/>
+                <ref bean="springQtzJobDetail1"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>

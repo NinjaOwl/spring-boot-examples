@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.neo</groupId>
-	<artifactId>spring-boot-Jpa</artifactId>
+	<artifactId>spring-boot-jpa</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>spring-boot-Jpa</name>
+	<name>spring-boot-jpa</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
